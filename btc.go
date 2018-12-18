@@ -16,6 +16,10 @@ import (
 // A25 is a type for a 25 byte (not base58 encoded) bitcoin address.
 type A25 [25]byte
 
+func (a *A25) Version() byte {
+	return a[0]
+}
+
 func (a *A25) EmbeddedChecksum() (c [4]byte) {
 	copy(c[:], a[21:])
 	return
@@ -72,10 +76,10 @@ func (a *A25) Set58(s []byte) error {
 // and the checksum validates.  Return value ok will be true for valid
 // addresses.  If ok is false, the address is invalid and the error value
 // may indicate why.
-func ValidateBTCAddress(a58 []byte) (ok bool, err error) {
+func ValidateBTCAddress(a58 []byte) (ok bool, version byte, err error) {
 	var a A25
 	if err := a.Set58(a58); err != nil {
-		return false, err
+		return false, 0, err
 	}
-	return a.EmbeddedChecksum() == a.ComputeChecksum(), nil
+	return a.EmbeddedChecksum() == a.ComputeChecksum(), a.Version(), nil
 }
