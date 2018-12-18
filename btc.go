@@ -76,9 +76,9 @@ func (a *A25) Set58(s []byte) error {
 // and the checksum validates.  Return value ok will be true for valid
 // addresses.  If ok is false, the address is invalid and the error value
 // may indicate why.
-func ValidateBTCAddress(a58 []byte) (ok bool, version byte, err error) {
+func ValidateBTCAddress(a58 string) (ok bool, version byte, err error) {
 	var a A25
-	if err := a.Set58(a58); err != nil {
+	if err := a.Set58([]byte(a58)); err != nil {
 		return false, 0, err
 	}
 	return a.EmbeddedChecksum() == a.ComputeChecksum(), a.Version(), nil
