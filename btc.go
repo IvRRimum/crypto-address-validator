@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"errors"
-	"os"
 )
 
 // With at least one other bitcoin RC task, this source is styled more like
