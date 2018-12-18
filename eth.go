@@ -1,9 +1,5 @@
 package CryptoAddressValidator
 
-import (
-	"fmt"
-)
-
 const (
 	HashLength    = 32
 	AddressLength = 20
